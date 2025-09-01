@@ -25,6 +25,7 @@
         'views/book_action.xml',
         'views/class_views.xml',
         'views/teacher_views.xml',
+        'views/product_views.xml',
 
 
 

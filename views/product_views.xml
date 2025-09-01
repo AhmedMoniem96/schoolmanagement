@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="view_product_variant_form_inherit_book_level_all" model="ir.ui.view">
+            <field name="name">product.product.form.book_level_all</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='barcode']" position="after">
+                    <field name="book_level"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
