@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="school_semester_list" model="ir.ui.view">
+            <field name="name">school.semester.list</field>
+            <field name="model">school.semester</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="academic_year_id" />
+                </list>
+            </field>
+        </record>
+
+
+        <record id="school_semester_form" model="ir.ui.view">
+            <field name="name">school.semester.form</field>
+            <field name="model">school.semester</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="academic_year_id" />
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+        <record id="action_school_semester" model="ir.actions.act_window">
+            <field name="name">School Semester</field>
+            <field name="res_model">school.semester</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="menu_school_semester"
+                  name="School Semester"
+                  parent="menu_school"
+                  action="action_school_semester"/>
+    </data>
+</odoo>

@@ -1,0 +1,41 @@
+{
+    'name': 'School Management System',
+    'version': '1.0',
+    'summary': 'School Management System',
+    'author': 'Mn3m',
+    'category' : 'Tools',
+    'depends': ['base','mail' , 'base_automation','product','sale'],
+    'data': [
+        'security/school_security.xml',
+        'security/ir.model.access.csv',
+        'data/enrollment_sequence.xml',
+        'data/server_action.xml',
+        'wizard/closed_reason_wizard_view.xml',
+        'views/school_menuitem.xml',
+        'views/school_view.xml',
+        'views/branch_view.xml',
+        'views/academic_view.xml',
+        'views/branch_history_view.xml',
+        'views/branch_tags_view.xml',
+        'views/student_view.xml',
+        'views/school_fee_structure_view.xml',
+        'views/semester_view.xml',
+        'views/enrollment_view.xml',
+        'views/fee_type_view.xml',
+        'views/book_action.xml',
+        'views/class_views.xml',
+        'views/teacher_views.xml',
+
+
+
+
+
+
+
+
+    ],
+    'installable': True,
+    'application': False,
+    'auto_install': False,
+
+}

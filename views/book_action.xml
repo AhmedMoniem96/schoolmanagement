@@ -1,0 +1,16 @@
+<odoo>
+
+
+    <record id="product_product_as_book_level1" model="ir.actions.act_window">
+        <field name="name">Books For Level1</field>
+        <field name="res_model">product.product</field>
+        <field name="context">{'default_book_level':'level_1'}</field>
+        <field name="domain">[('book_level','=','level_1')]</field>
+    </record>
+
+
+
+
+    
+
+</odoo>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="view_school_fee_structure_list" model="ir.ui.view">
+      <field name="name">school.fee.structure.list</field>
+      <field name="model">school.fee.structure</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="name"/>
+          <field name="academic_year_id"/>
+          <field name="semester_id"/>
+          <field name="book_ids"/>
+          <field name="activation_date"/>
+        </list>
+      </field>
+    </record>
+
+    <record id="view_school_fee_structure_form" model="ir.ui.view">
+      <field name="name">school.fee.structure.form</field>
+      <field name="model">school.fee.structure</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="academic_year_id"/>
+              <field name="semester_id"/>
+              <field name="empty_book_lines"/>
+              <field name="total_amount"/>
+              <field name="activation_date"/>
+            </group>
+
+
+
+            <notebook>
+                <page string="Fees">
+                    <field name="fee_line_ids">
+                        <list editable="bottom">
+                            <field name="fee_type_id"/>
+                            <field name="amount" readonly="1"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Books">
+                    <field name="book_ids">
+                        <list>
+                            <field name="name"/>
+                        </list>
+                    </field>
+                </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_school_fee_structure" model="ir.actions.act_window">
+      <field name="name">School Fee Structure</field>
+      <field name="res_model">school.fee.structure</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_school_fee_structure"
+              name="School Structure"
+              parent="menu_school"
+              action="action_school_fee_structure"/>
+  </data>
+</odoo>

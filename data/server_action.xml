@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_update_branch" model="ir.actions.server">
+            <field name="name">Action Update Branch</field>
+            <field name="model_id" ref="schoolmanagement.model_school_branch"/>
+            <field name="binding_model_id" ref="schoolmanagement.model_school_branch"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">action = records.action_update_closed_flag()</field>
+        </record>
+<!--        <record id="action_add_followers" model="ir.actions.server">-->
+<!--            <field name="name">Action Add Followers</field>-->
+<!--            <field name="model_id" ref="app1.model_school_branch"/>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">records.action_add_followers()</field>-->
+<!--        </record>-->
+
+<!--        <record id="automated_action_add_followers" model="base.automation">-->
+<!--            <field name="name">Auto Add Followers on Create</field>-->
+<!--            <field name="model_id" ref="app1.model_school_branch"/>-->
+<!--            <field name="trigger">on_create</field>-->
+<!--            <field name="state">code</field>-->
+<!--            <field name="code">records.action_add_followers()</field>-->
+<!--        </record>-->
+
+
+
+        <record id="action_add_followers_branch" model="ir.actions.server">
+            <field name="name">Action Add Followers (Branch)</field>
+            <field name="model_id" ref="schoolmanagement.model_school_branch"/>
+            <field name="binding_model_id" ref="schoolmanagement.model_school_branch"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">records.action_add_followers()</field>
+        </record>
+
+        <record id="action_add_followers_year" model="ir.actions.server">
+            <field name="name">Action Add Followers (Year)</field>
+            <field name="model_id" ref="schoolmanagement.model_academic_year"/>
+            <field name="binding_model_id" ref="schoolmanagement.model_academic_year"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">records.action_add_followers()</field>
+        </record>
+
+        <record id="action_add_followers_school" model="ir.actions.server">
+            <field name="name">Action Add Followers (School)</field>
+            <field name="model_id" ref="model_school_school"/>
+            <field name="binding_model_id" ref="model_school_school"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">records.action_add_followers()</field>
+        </record>
+
+    </data>
+</odoo>

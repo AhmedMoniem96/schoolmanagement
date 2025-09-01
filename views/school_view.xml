@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!-- School: List -->
+    <record id="school_school_list" model="ir.ui.view">
+      <field name="name">school.school.list</field>
+      <field name="model">school.school</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="name"/>
+          <field name="address_id" context="{'show_address': 1}" options='{"always_reload": True}'/>
+          <field name="establishment_date"/>
+        </list>
+      </field>
+    </record>
+
+    <record id="school_school_form" model="ir.ui.view">
+      <field name="name">school.school.form</field>
+      <field name="model">school.school</field>
+      <field name="arch" type="xml">
+        <form string="School">
+          <sheet>
+            <group>
+              <field name="name"/>
+            </group>
+            <group>
+              <field name="address_id" context="{'show_address': 1}" options='{"always_reload": True}'/>
+            </group>
+            <group>
+              <field name="establishment_date"/>
+            </group>
+
+            <notebook>
+              <page string="Branches">
+                <field name="branch_ids">
+                  <list editable="bottom">
+                    <field name="name"/>
+                    <field name="city_id"/>
+                    <field name="country_id"/>
+                  </list>
+                </field>
+              </page>
+
+              <page string="Classes">
+                <field name="class_ids">
+                  <list>
+                    <field name="name"/>
+                    <field name="book_level"/>
+                    <field name="teacher_id"/>
+                    <field name="semester_id"/>
+                    <field name="state"/>
+                  </list>
+                  <form>
+                    <sheet>
+                      <group>
+                        <field name="name"/>
+                        <field name="school_id"/>
+                        <field name="book_level"/>
+                        <field name="teacher_id"/>
+                        <field name="semester_id"/>
+                        <field name="state" readonly="1"/>
+<!--                        <field name="email"/>-->
+                      </group>
+                    </sheet>
+                  </form>
+                </field>
+              </page>
+            </notebook>
+          </sheet>
+          <chatter/>
+        </form>
+      </field>
+    </record>
+
+    <record id="school_school_kanban" model="ir.ui.view">
+      <field name="name">school.school.kanban</field>
+      <field name="model">school.school</field>
+      <field name="arch" type="xml">
+        <kanban class="o_kanban_mobile">
+          <field name="name"/>
+          <field name="address_id"/>
+          <field name="establishment_date"/>
+          <templates>
+            <t t-name="card">
+              <div class="oe_kanban_global_click o_kanban_card">
+                <div class="row mb-2">
+                  <div class="col-8 fw-bold fs-5">
+                    <field name="name"/>
+                  </div>
+                  <div class="col-4 text-end">
+                    <span class="badge bg-primary">
+                      <field name="address_id"/>
+                    </span>
+                  </div>
+                </div>
+                <div class="text-muted">
+                  <strong>Established:</strong>
+                  <span t-esc="(new Date(record.establishment_date.raw_value)).toLocaleDateString()"/>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <record id="action_school_school" model="ir.actions.act_window">
+      <field name="name">Schools</field>
+      <field name="res_model">school.school</field>
+      <field name="view_mode">list,form,kanban</field>
+    </record>
+
+    <menuitem id="menu_school_school"
+              name="Schools"
+              parent="menu_school"
+              action="action_school_school"/>
+
+  </data>
+</odoo>
