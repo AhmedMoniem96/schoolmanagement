@@ -6,7 +6,7 @@
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='barcode']" position="after">
-                    <field name="book_level"/>
+                    <field name="book_level" widget="statusbar" options="{'clickable':1}"/>
                 </xpath>
             </field>
         </record>
