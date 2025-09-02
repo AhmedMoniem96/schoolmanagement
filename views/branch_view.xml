@@ -134,17 +134,36 @@
             </field>
         </record>
 
-        <record id="school_branch_search_view" model = 'ir.ui.view'>
-       <field name="name">school.branch.search.view</field>
-       <field name="model">school.branch</field>
-       <field name="arch" type="xml">
-               <search>
-                   <field name="name"/>
-                   <field name="school_id"/>
-               </search>
-       </field>
-     </record>
+    <record id="school_branch_search_view" model="ir.ui.view">
+  <field name="name">school.branch.search.view</field>
+  <field name="model">school.branch</field>
+  <field name="arch" type="xml">
+    <search string="Search Branches">
+      <field name="name"/>
+      <field name="school_id"/>
+      <field name="country_id"/>
 
+      <field name="address_search" string="Address"
+             filter_domain="['|','|','|',
+                             ('city','ilike',self),
+                             ('street1','ilike',self),
+                             ('street2','ilike',self),
+                             ('zip','ilike',self)]"/>
+
+      <group expand="0" string="Group By">
+        <filter string="State (Active/Draft/Closed)" name="state_type"
+                context="{'group_by': 'state'}"/>
+        <filter string="Created Month" name="date_created"
+                context="{'group_by': 'create_date:month'}"/>
+      </group>
+
+      <searchpanel>
+        <field name="country_id" string="Country" select="one"/>
+        <field name="state" string="Status" select="one"/>
+      </searchpanel>
+    </search>
+  </field>
+</record>
 
 
         <record id="action_branch" model="ir.actions.act_window">

@@ -30,7 +30,9 @@ class Branch(models.Model):
     branch_history = fields.One2many('school.branch.history', 'branch_id', string='Branch History')
 
     supervisors_ids = fields.One2many('school.branch.supervisors','branch_id', string='Supervisors')
-##############################model name ,      DB Relation table              pkey          pk
+    address_search = fields.Char(string="Address Search Helper", store=False)
+
+    ##############################model name ,      DB Relation table              pkey          pk
     tags_ids = fields.Many2many('school.branch.tags','school_branch_tags_rel','branch_id','tags_id',string="Tags",domain="[('branch_id','=',id)]")
 
 

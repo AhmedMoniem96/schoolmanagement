@@ -55,6 +55,30 @@
                 </form>
             </field>
         </record>
+
+        <record id="school_student_search_view" model="ir.ui.view">
+  <field name="name">school.student.search.view</field>
+  <field name="model">school.student</field>
+  <field name="arch" type="xml">
+    <search string="Search Students">
+      <field name="name"/>
+      <field name="class_id"/>
+      <field name="student_code"/>
+
+
+      <group expand="0" string="Group By">
+        <filter string="Grade (Grade 1/Grade 2/Grade 3)" name="grade_levels"
+                context="{'group_by': 'grade'}"/>
+      </group>
+
+      <searchpanel>
+        <field name="grade" string="Grade" select="one"/>
+      </searchpanel>
+    </search>
+  </field>
+</record>
+
+
         <record id="action_school_student" model="ir.actions.act_window">
             <field name="name">School Student</field>
             <field name="res_model">school.student</field>
