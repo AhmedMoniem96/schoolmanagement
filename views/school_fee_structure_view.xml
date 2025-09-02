@@ -12,6 +12,7 @@
           <field name="semester_id"/>
           <field name="book_ids"/>
           <field name="activation_date"/>
+          <field name="currency_id"/>
         </list>
       </field>
     </record>
@@ -29,6 +30,7 @@
               <field name="empty_book_lines"/>
               <field name="total_amount"/>
               <field name="activation_date"/>
+              <field name="currency_id"/>
             </group>
 
 

@@ -9,9 +9,18 @@ class SchoolFreeStructure(models.Model):
     fee_line_ids = fields.One2many('fee.structure.lines','school_fee_id')
     book_ids = fields.Many2many('product.product')
 
-    total_amount = fields.Float(string='Total Amount',compute="_compute_total_amount",inverse='_inverse_total_amount')
+    # total_amount = fields.Float(string='Total Amount',compute="_compute_total_amount",inverse='_inverse_total_amount')
     empty_book_lines = fields.Boolean(string='Empty')
     activation_date = fields.Date(string="Activation Date")
+    total_amount = fields.Monetary(
+        string='Total Amount',
+        currency_field='currency_id',
+        compute='_compute_total_amount',
+        store=True,
+    )
+    currency_id = fields.Many2one('res.currency',string='Currency',default=lambda self: self.env.company.currency_id.id,
+                                  required=True)
+
 
 
     @api.onchange('empty_book_lines')
