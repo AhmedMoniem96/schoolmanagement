@@ -9,9 +9,11 @@
         'security/school_security.xml',
         'security/ir.model.access.csv',
         'data/enrollment_sequence.xml',
+        'data/book_sequence.xml',
         'data/server_action.xml',
         'wizard/closed_reason_wizard_view.xml',
         'views/school_menuitem.xml',
+        'views/menus_school_products.xml',
         'views/school_view.xml',
         'views/branch_view.xml',
         'views/academic_view.xml',
@@ -26,7 +28,6 @@
         'views/class_views.xml',
         'views/teacher_views.xml',
         'views/product_views.xml',
-
 
 
 

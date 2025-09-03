@@ -1,0 +1,10 @@
+<odoo>
+    <data noupdate="1">
+        <record id="seq_school_book" model="ir.sequence">
+            <field name="name">School Book Sequence</field>
+            <field name="code">school.book.seq</field>
+            <field name="prefix">BOOK</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</odoo>
