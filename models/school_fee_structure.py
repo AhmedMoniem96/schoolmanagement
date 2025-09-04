@@ -1,4 +1,5 @@
 from odoo import api , fields , models
+from odoo.exceptions import ValidationError
 
 class SchoolFreeStructure(models.Model):
     _name = "school.fee.structure"
@@ -7,38 +8,72 @@ class SchoolFreeStructure(models.Model):
     academic_year_id = fields.Many2one('academic.year',string='Academic Year')
     semester_id = fields.Many2one('school.semester',string='Semester')
     fee_line_ids = fields.One2many('fee.structure.lines','school_fee_id')
-    book_ids = fields.Many2many('product.product')
 
-    # total_amount = fields.Float(string='Total Amount',compute="_compute_total_amount",inverse='_inverse_total_amount')
     empty_book_lines = fields.Boolean(string='Empty')
     activation_date = fields.Date(string="Activation Date")
+    books_ids = fields.Many2many(
+        'product.product', 'fee_struct_books_rel', 'fee_id', 'product_id',
+        string="Books", domain="[('school_item_type','=','book')]"
+    )
+    supplies_ids = fields.Many2many(
+        'product.product', 'fee_struct_supplies_rel', 'fee_id', 'product_id',
+        string="Supplies", domain="[('school_item_type','=','supplies')]"
+    )
+    uniform_ids = fields.Many2many(
+        'product.product', 'fee_struct_uniform_rel', 'fee_id', 'product_id',
+        string="Uniform", domain="[('school_item_type','=','uniform')]"
+    )
+
+    subtotal_amount = fields.Monetary(
+        string='Subtotal',
+        currency_field='currency_id',
+        compute='_compute_totals',
+        store=True,
+    )
+    discount_amount = fields.Monetary(
+        string='Discount',
+        currency_field='currency_id',
+        default=0.0
+    )
     total_amount = fields.Monetary(
         string='Total Amount',
         currency_field='currency_id',
-        compute='_compute_total_amount',
+        compute='_compute_totals',
         store=True,
     )
+
     currency_id = fields.Many2one('res.currency',string='Currency',default=lambda self: self.env.company.currency_id.id,
                                   required=True)
 
-
+    items_total = fields.Monetary(
+        string="Items Total",
+        currency_field='currency_id',
+        compute='_compute_totals',
+        store=True,
+    )
 
     @api.onchange('empty_book_lines')
     def _onchange_empty_book_lines(self):
         if self.empty_book_lines:
-            self.book_ids = [(5,0,0)]
+            self.books_ids = [(5,0,0)]
+            self.supplies_ids = [(5, 0, 0)]
+            self.uniform_ids = [(5, 0, 0)]
 
 
-    def _inverse_total_amount(self):
+    @api.depends('fee_line_ids.amount', 'discount_amount','books_ids','supplies_ids','uniform_ids')
+    def _compute_totals(self):
         for rec in self:
-            amount_per_line = rec.total_amount / len(rec.fee_line_ids)
-            for line in rec.fee_line_ids:
-                line.amount = amount_per_line
+            subtotal = sum(rec.fee_line_ids.mapped('amount'))
+            products = (rec.books_ids | rec.supplies_ids | rec.uniform_ids)
+            items = sum(products.mapped('list_price'))
+            rec.subtotal_amount = subtotal
+            rec.items_total = items
+            rec.total_amount = max(subtotal + items - (rec.discount_amount or 0.0), 0.0)
 
-    @api.depends('fee_line_ids.amount')
-    def _compute_total_amount(self):
-        for record in self:
-            amount_in_a_list = sum(record.fee_line_ids.mapped('amount'))
-            record.total_amount = amount_in_a_list
-
-
+    @api.constrains('discount_amount')
+    def _check_discount_not_exceed_subtotal(self):
+        for rec in self:
+            if rec.discount_amount and rec.discount_amount < 0:
+                raise ValidationError(_("Discount cannot be negative."))
+            if (rec.discount_amount or 0.0) > (rec.subtotal_amount or 0.0):
+                raise ValidationError(_("Discount cannot exceed the subtotal."))

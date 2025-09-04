@@ -10,7 +10,7 @@
           <field name="name"/>
           <field name="academic_year_id"/>
           <field name="semester_id"/>
-          <field name="book_ids"/>
+          <field name="books_ids"/>
           <field name="activation_date"/>
           <field name="currency_id"/>
         </list>
@@ -21,36 +21,60 @@
       <field name="name">school.fee.structure.form</field>
       <field name="model">school.fee.structure</field>
       <field name="arch" type="xml">
-        <form>
+        <form string="Fee Structure">
           <sheet>
             <group>
               <field name="name"/>
               <field name="academic_year_id"/>
               <field name="semester_id"/>
               <field name="empty_book_lines"/>
-              <field name="total_amount"/>
+              <field name="total_amount" readonly="1"/>
               <field name="activation_date"/>
               <field name="currency_id"/>
+
+              <seperator string="Total"/>
+
+              <field name="subtotal_amount"/>
+              <field name="items_total" readonly="1"/>
+              <field name="discount_amount"/>
+              <field name="total_amount" readonly="1"/>
+
             </group>
 
-
-
             <notebook>
-                <page string="Fees">
-                    <field name="fee_line_ids">
-                        <list editable="bottom">
-                            <field name="fee_type_id"/>
-                            <field name="amount" readonly="1"/>
-                        </list>
-                    </field>
-                </page>
-                <page string="Books">
-                    <field name="book_ids">
-                        <list>
-                            <field name="name"/>
-                        </list>
-                    </field>
-                </page>
+              <page string="Fees">
+                <field name="fee_line_ids" nolabel="1">
+                  <list editable="bottom">
+                    <field name="fee_type_id"/>
+                    <field name="amount" readonly="1"/>
+                  </list>
+                </field>
+              </page>
+
+              <page string="Products_History">
+                <notebook>
+                  <page string="Books">
+                    <field name="books_ids" widget="many2many_tags"
+                           domain="[('school_item_type','=','book')]"
+                           context="{'search_default_school_books': 1}"
+                           options="{'no_create_edit': True}"/>
+                  </page>
+
+                  <page string="Supplies">
+                    <field name="supplies_ids" widget="many2many_tags"
+                           domain="[('school_item_type','=','supplies')]"
+                           context="{'search_default_school_supplies': 1}"
+                           options="{'no_create_edit': True}"/>
+                  </page>
+
+                  <page string="Uniform">
+                    <field name="uniform_ids" widget="many2many_tags"
+                           domain="[('school_item_type','=','uniform')]"
+                           context="{'search_default_school_uniform': 1}"
+                           options="{'no_create_edit': True}"/>
+                  </page>
+                </notebook>
+              </page>
             </notebook>
           </sheet>
         </form>
@@ -61,12 +85,13 @@
       <field name="name">School Fee Structure</field>
       <field name="res_model">school.fee.structure</field>
       <field name="view_mode">list,form,pivot,graph</field>
+      <field name="view_id" ref="view_school_fee_structure_list"/>
     </record>
-
 
     <record id="view_school_fee_structure_pivot" model="ir.ui.view">
       <field name="name">school.fee.structure.pivot</field>
       <field name="model">school.fee.structure</field>
+      <field name="type">pivot</field>
       <field name="arch" type="xml">
         <pivot string="Pivot Structure">
           <field name="total_amount" type="measure"/>
@@ -76,16 +101,16 @@
       </field>
     </record>
 
-
-      <record id="view_school_fee_structure_graph" model="ir.ui.view">
+    <record id="view_school_fee_structure_graph" model="ir.ui.view">
       <field name="name">school.fee.structure.graph</field>
       <field name="model">school.fee.structure</field>
+      <field name="type">graph</field>
       <field name="arch" type="xml">
-        <pivot string="Graph Structure">
+        <graph string="Graph Structure" type="bar" stacked="True">
           <field name="total_amount" type="measure"/>
           <field name="create_date" type="col" interval="month"/>
           <field name="name" type="row"/>
-        </pivot>
+        </graph>
       </field>
     </record>
 
