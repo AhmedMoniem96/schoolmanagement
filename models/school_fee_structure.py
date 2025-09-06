@@ -24,12 +24,6 @@ class SchoolFreeStructure(models.Model):
     #     string="Uniform", domain="[('school_item_type','=','uniform')]"
     # )
 
-    fee_type = fields.Selection([
-        ('book','Books'),
-        ('supplies','Supplies'),
-        ('uniform','Uniform')
-    ],)
-
     subtotal_amount = fields.Monetary(
         string='Subtotal',
         currency_field='currency_id',

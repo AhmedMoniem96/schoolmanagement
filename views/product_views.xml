@@ -1,21 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <record id="view_product_variant_form_inherit_book_level_all" model="ir.ui.view">
-            <field name="name">product.product.form.book_level_all</field>
-            <field name="model">product.product</field>
-            <field name="inherit_id" ref="product.product_normal_form_view"/>
-            <field name="arch" type="xml">
-            <group>
-                <xpath expr="//field[@name='invoice_policy']" position="after">
-                    <field name="school_item_type"/>
-                    <field name="book_level" invisible="school_item_type != 'book'"/>
-                    <field name="book_code" readonly="1" invisible="school_item_type != 'book'"/>
-                </xpath>
-            </group>
-
-            </field>
-        </record>
-    </data>
-
-
+  <record id="view_product_variant_form_inherit_book_level_all" model="ir.ui.view">
+    <field name="name">product.product.form.book_level_all</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="product.product_normal_form_view"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='invoice_policy']" position="after">
+        <field name="school_item_type"/>
+        <field name="book_level" invisible="school_item_type != 'book'"/>
+        <field name="book_code"  readonly="1" invisible="school_item_type != 'book'"/>
+      </xpath>
+    </field>
+  </record>
 </odoo>
