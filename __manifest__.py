@@ -20,6 +20,7 @@
         'views/branch_history_view.xml',
         'views/branch_tags_view.xml',
         'views/student_view.xml',
+        'views/fee_type_views.xml',
         'views/school_fee_structure_view.xml',
         'views/semester_view.xml',
         'views/enrollment_view.xml',
@@ -28,12 +29,7 @@
         'views/class_views.xml',
         'views/teacher_views.xml',
         'views/product_views.xml',
-
-
-
-
-
-
+        'report/fees_report_view.xml',
 
     ],
     'installable': True,

@@ -1,0 +1,35 @@
+<odoo>
+
+  <record id="view_fees_structure_report_pivot" model="ir.ui.view">
+    <field name="name">fees.structure.report.pivot</field>
+    <field name="model">fees.structure.report</field>
+    <field name="arch" type="xml">
+      <pivot string="Fees Report (Pivot)">
+        <field name="total_amount" type="measure"/>
+        <field name="activation_date" type="col" interval="month"/>
+        <field name="name" type="row"/>
+        <field name="semester_id" type="row"/>
+        <field name="academic_year_id" type="row"/>
+      </pivot>
+    </field>
+  </record>
+
+  <record id="view_fees_structure_report_graph" model="ir.ui.view">
+    <field name="name">fees.structure.report.graph</field>
+    <field name="model">fees.structure.report</field>
+    <field name="arch" type="xml">
+      <graph string="Fees Report (Graph)" type="bar" stacked="True">
+        <field name="total_amount" type="measure"/>
+        <field name="activation_date" type="col" interval="month"/>
+        <field name="name" type="row"/>
+      </graph>
+    </field>
+  </record>
+
+  <record id="action_fees_structure_report" model="ir.actions.act_window">
+    <field name="name">Fees Structure Report</field>
+    <field name="res_model">fees.structure.report</field>
+    <field name="view_mode">list,pivot,graph</field>
+  </record>
+
+</odoo>

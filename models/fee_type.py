@@ -7,6 +7,12 @@ class FeeType(models.Model):
     name = fields.Char(string="Name", required=True)
     amount = fields.Float(string="Amount", required=True)
 
+    school_item_type = fields.Selection([
+        ('book', 'Books'),
+        ('supplies', 'Supplies'),
+        ('uniform', 'Uniform'),
+    ], string="Category", required=True)
+
     _sql_constraints = [
         ('fee_type_name_uniq', 'unique(name)', 'Fee Type name must be unique.')
     ]

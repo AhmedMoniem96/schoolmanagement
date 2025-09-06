@@ -15,7 +15,7 @@ access_fee_type_user,access.fee.type.user,model_fee_type,base.group_user,1,1,1,1
 access_school_class_students_user,access.school.class.students.user,model_school_class_students,base.group_user,1,1,1,1
 access_school_teacher_user,access.school.teacher.user,model_school_teacher,base.group_user,1,1,1,1
 access_school_class_user,access.school.class.user,model_school_class,base.group_user,1,1,1,1
-
+access_fee_type_user,fee.type user,model_fee_type,base.group_user,1,1,1,1
 
 ,,,,,,,
 ,,,,,,,
