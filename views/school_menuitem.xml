@@ -4,6 +4,7 @@
               name="School Management"
               sequence="10"/>
 
+
     <!-- Action -->
     <record id="action_school" model="ir.actions.act_window">
         <field name="name">Schools</field>
@@ -17,4 +18,6 @@
               parent="menu_schoolmanagement"
               action="action_school"
               sequence="1"/>
+
+
 </odoo>

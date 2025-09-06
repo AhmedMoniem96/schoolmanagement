@@ -16,6 +16,10 @@ class FeeStructureLines(models.Model):
 
     amount = fields.Float(string='Amount',related='fee_type_id.amount',store=True)
 
+    product_id = fields.Many2one('product.product', string="Product")
+    semester_id = fields.Many2one(related='school_fee_id.semester_id', store=True)
+    academic_year_id = fields.Many2one(related='school_fee_id.academic_year_id', store=True)
+    create_date = fields.Datetime(string="Created On", readonly=True)
 
     school_fee_id = fields.Many2one('school.fee.structure',string='Fee Structure',required=True,ondelete='cascade')
     currency_id = fields.Many2one(related='school_fee_id.currency_id',store=True,readonly=True)

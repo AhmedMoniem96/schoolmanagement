@@ -1,35 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
+  <data>
 
-  <record id="view_fees_structure_report_pivot" model="ir.ui.view">
-    <field name="name">fees.structure.report.pivot</field>
-    <field name="model">fees.structure.report</field>
-    <field name="arch" type="xml">
-      <pivot string="Fees Report (Pivot)">
-        <field name="total_amount" type="measure"/>
-        <field name="activation_date" type="col" interval="month"/>
-        <field name="name" type="row"/>
-        <field name="semester_id" type="row"/>
-        <field name="academic_year_id" type="row"/>
-      </pivot>
-    </field>
-  </record>
+    <record id="view_fee_lines_pivot" model="ir.ui.view">
+      <field name="name">fee.structure.lines.pivot</field>
+      <field name="model">fee.structure.lines</field>
+      <field name="arch" type="xml">
+        <pivot string="Fee Lines Analysis">
+          <field name="subtotal" type="measure"/>
+          <field name="product_id" type="row"/>
+          <field name="semester_id" type="row"/>
+          <field name="fee_type_id" type="row"/>
+          <field name="create_date" type="col" interval="month"/>
+        </pivot>
+      </field>
+    </record>
 
-  <record id="view_fees_structure_report_graph" model="ir.ui.view">
-    <field name="name">fees.structure.report.graph</field>
-    <field name="model">fees.structure.report</field>
-    <field name="arch" type="xml">
-      <graph string="Fees Report (Graph)" type="bar" stacked="True">
-        <field name="total_amount" type="measure"/>
-        <field name="activation_date" type="col" interval="month"/>
-        <field name="name" type="row"/>
-      </graph>
-    </field>
-  </record>
+    <record id="view_fee_lines_graph" model="ir.ui.view">
+      <field name="name">fee.structure.lines.graph</field>
+      <field name="model">fee.structure.lines</field>
+      <field name="arch" type="xml">
+        <graph string="Fee Lines Graph" type="bar" stacked="True">
+          <field name="subtotal" type="measure"/>
+          <field name="product_id" type="row"/>
+          <field name="semester_id" type="row"/>
+          <field name="fee_type_id" type="row"/>
+          <field name="create_date" type="col" interval="month"/>
+        </graph>
+      </field>
+    </record>
 
-  <record id="action_fees_structure_report" model="ir.actions.act_window">
-    <field name="name">Fees Structure Report</field>
-    <field name="res_model">fees.structure.report</field>
-    <field name="view_mode">list,pivot,graph</field>
-  </record>
+    <record id="action_fee_lines_report" model="ir.actions.act_window">
+      <field name="name">Fees Analysis</field>
+      <field name="res_model">fee.structure.lines</field>
+      <field name="view_mode">pivot,graph,list</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Analyze fees per product, semester, and type here.
+        </p>
+      </field>
+    </record>
 
+    <menuitem id="menu_fee_lines_report"
+              name="Fees Analysis"
+              parent="menu_school"
+              action="action_fee_lines_report"
+              sequence="30"/>
+  </data>
 </odoo>
